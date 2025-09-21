@@ -4,6 +4,8 @@
 
 这是一个专门用于学习和理解DRG（疾病诊断相关组）分组逻辑的可视化教学项目。通过图形化的方式展示DRG分组的业务流程、技术实现和实际应用，帮助医疗信息化从业者、医院管理人员和相关学习者快速掌握DRG分组的核心概念。
 
+本项目是在学习 [OpenDRG/DRG_Python](https://github.com/OpenDRG/DRG_Python) 过程中，通过解读其代码，梳理和可视化 DRG 分组原理，帮助学习者更好地理解 DRG 体系的核心逻辑。
+
 ## 🎯 项目特色
 
 - **📊 可视化图表**：4个专业的流程图和结构图
@@ -143,6 +145,7 @@ colors = {
 
 - [国家医保局DRG官方文档](https://www.nhsa.gov.cn/art/2024/7/23/art_104_13313.html)
 - [ICD-10疾病诊断编码](https://icd.who.int/browse10/2019/en)
+- [OpenDRG/DRG_Python（国家医保局CHS-DRG分组器Python实现，Apache-2.0）](https://github.com/OpenDRG/DRG_Python)：开源的CHS-DRG分组器实现，支持多地标准，适合深入学习和二次开发。
 
 ## 🤝 贡献指南
 
