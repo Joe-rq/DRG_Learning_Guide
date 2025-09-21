@@ -163,8 +163,9 @@ colors = {
 
 如有问题或建议，请通过以下方式联系：
 
-- 📧 Email: your-email@example.com
-- 🐛 Issues: [GitHub Issues](https://github.com/your-username/drg-learning-guide/issues)
+- 📧 Email: qrq-hit@foxmail.com
+- 🐛 Issues: [GitHub Issues](https://github.com/Joe-rq/DRG_Learning_Guide/issues)
+- 🌐 项目地址: [https://github.com/Joe-rq/DRG_Learning_Guide](https://github.com/Joe-rq/DRG_Learning_Guide)
 
 ## 🙏 致谢
 
