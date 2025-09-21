@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRG分组可视化学习指南</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', 'SimHei', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 40px;
+            padding-left: 10px;
+            border-left: 4px solid #3498db;
+        }
+        .chart-section {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #fafafa;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        .chart-img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .explanation {
+            background-color: #e8f4fd;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin: 15px 0;
+        }
+        .key-points {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+        .example {
+            background-color: #d1ecf1;
+            padding: 15px;
+            border-left: 4px solid #17a2b8;
+            margin: 15px 0;
+        }
+        .flowchart-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+        ul {
+            padding-left: 25px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .toc {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .toc li {
+            margin: 10px 0;
+        }
+        .toc a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏥 DRG分组可视化学习指南</h1>
+        
+        <div class="toc">
+            <h3>📑 目录</h3>
+            <ul>
+                <li><a href="#overview">1. DRG分组总体流程</a></li>
+                <li><a href="#structure">2. 三层分组结构</a></li>
+                <li><a href="#logic">3. 并发症判断逻辑</a></li>
+                <li><a href="#case">4. 具体病例分析</a></li>
+                <li><a href="#summary">5. 学习总结</a></li>
+            </ul>
+        </div>
+
+        <section id="overview" class="chart-section">
+            <h2>📊 1. DRG分组总体流程</h2>
+            <img src="../images/drg_overview_flowchart.png" alt="DRG分组总体流程图" class="chart-img">
+            
+            <div class="explanation">
+                <h4>🔍 流程解析</h4>
+                <p>这个流程图展示了从病人入院到最终DRG分组的完整过程：</p>
+                <ul>
+                    <li><strong>数据准备阶段</strong>：收集病人基本信息、诊断代码、手术操作、住院天数等</li>
+                    <li><strong>数据处理阶段</strong>：格式转换、完整性校验、代码标准化</li>
+                    <li><strong>分组逻辑阶段</strong>：三层分组决策（MDC→ADRG→DRG）</li>
+                    <li><strong>结果输出阶段</strong>：生成分组结果、权重系数、支付标准</li>
+                </ul>
+            </div>
+
+            <div class="flowchart-legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #E3F2FD;"></div>
+                    <span>数据输入</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #BBDEFB;"></div>
+                    <span>数据处理</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #90CAF9;"></div>
+                    <span>分组决策</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #42A5F5;"></div>
+                    <span>最终结果</span>
+                </div>
+            </div>
+
+            <div class="key-points">
+                <h4>🎯 关键要点</h4>
+                <ul>
+                    <li><strong>数据质量是基础</strong>：准确的诊断编码和完整的病案信息是正确分组的前提</li>
+                    <li><strong>分组有优先级</strong>：按MDC→ADRG→DRG的顺序逐层细分</li>
+                    <li><strong>并发症是关键</strong>：最终分组主要看是否有并发症或合并症</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="structure" class="chart-section">
+            <h2>🏗️ 2. 三层分组结构</h2>
+            <img src="../images/drg_three_level_structure.png" alt="DRG三层分组结构图" class="chart-img">
+            
+            <div class="explanation">
+                <h4>🔍 结构解析</h4>
+                <p>DRG分组采用三层树状结构，从粗到细逐步分类：</p>
+                
+                <h5>第一层：MDC（主要诊断大类）</h5>
+                <ul>
+                    <li>共26个大类（MDCA-MDCZ）</li>
+                    <li>按人体系统划分：神经、循环、消化、呼吸等</li>
+                    <li>基于主诊断的ICD-10编码确定</li>
+                </ul>
+
+                <h5>第二层：ADRG（核心DRG组）</h5>
+                <ul>
+                    <li>每个MDC下有多个ADRG</li>
+                    <li>按诊断相似性和治疗方式分组</li>
+                    <li>如：GB1胰肝手术、GC1胆道手术、GZ1其他诊断</li>
+                </ul>
+
+                <h5>第三层：DRG（最终分组）</h5>
+                <ul>
+                    <li>每个ADRG下分为1、3、5组</li>
+                    <li>1组：伴严重并发症（MCC）</li>
+                    <li>3组：伴并发症（CC）</li>
+                    <li>5组：不伴并发症</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h4>💡 实例说明</h4>
+                <p><strong>以消化系统为例：</strong></p>
+                <p>病人主诊断为"食管破裂" → 消化系统(MDCG) → 其他诊断(GZ1) → 根据并发症分为GZ11/GZ13/GZ15</p>
+                <p><strong>支付标准递减：</strong>GZ11 > GZ13 > GZ15</p>
+            </div>
+        </section>
+
+        <section id="logic" class="chart-section">
+            <h2>🧠 3. 并发症判断逻辑</h2>
+            <img src="../images/drg_cc_logic_flowchart.png" alt="并发症判断逻辑流程图" class="chart-img">
+            
+            <div class="explanation">
+                <h4>🔍 逻辑解析</h4>
+                <p>这是DRG分组的核心逻辑，决定最终分到哪个组：</p>
+                
+                <h5>判断步骤：</h5>
+                <ol>
+                    <li><strong>检查诊断数量</strong>：只有主诊断 → 直接分入15组</li>
+                    <li><strong>获取排除表</strong>：每个主诊断都有对应的排除表号</li>
+                    <li><strong>检查MCC</strong>：遍历其他诊断，看是否属于严重并发症</li>
+                    <li><strong>排除表比较</strong>：如果MCC的排除表与主诊断不同 → 分入11组</li>
+                    <li><strong>检查CC</strong>：如果没有MCC，继续检查一般并发症</li>
+                    <li><strong>最终分组</strong>：有CC → 13组，无CC → 15组</li>
+                </ol>
+            </div>
+
+            <div class="key-points">
+                <h4>🎯 关键概念</h4>
+                <ul>
+                    <li><strong>MCC（主要并发症）</strong>：败血症、心力衰竭、恶性肿瘤等严重疾病</li>
+                    <li><strong>CC（并发症）</strong>：高血压、糖尿病、贫血等常见合并症</li>
+                    <li><strong>排除表</strong>：防止重复计算，主诊断相关的并发症不重复计入</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h4>💡 实例说明</h4>
+                <p><strong>病例：食管破裂 + 高血压 + 糖尿病</strong></p>
+                <ul>
+                    <li>主诊断：K22.301（排除表111）</li>
+                    <li>其他诊断：I10.x05（高血压，CC，排除表110）</li>
+                    <li>其他诊断：E11.900（糖尿病，CC，排除表110）</li>
+                    <li>结果：111 ≠ 110，有有效CC → GZ13</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="case" class="chart-section">
+            <h2>📋 4. 具体病例分析</h2>
+            <img src="../images/drg_case_analysis.png" alt="具体病例分析图" class="chart-img">
+            
+            <div class="explanation">
+                <h4>🔍 病例分析</h4>
+                <p>这个图表展示了一个完整的病例从信息收集到最终分组的全过程：</p>
+                
+                <h5>左侧：病例信息</h5>
+                <ul>
+                    <li>88岁女性患者，住院94天</li>
+                    <li>主诊断：食管破裂（严重消化系统疾病）</li>
+                    <li>合并症：腮腺肿物、糖尿病、高血压</li>
+                    <li>手术：营养管置入（支持治疗）</li>
+                </ul>
+
+                <h5>右侧：分组过程</h5>
+                <ol>
+                    <li><strong>MDC判断</strong>：食管破裂属消化系统 → MDCG</li>
+                    <li><strong>ADRG判断</strong>：不是手术类，属其他诊断 → GZ1</li>
+                    <li><strong>并发症检查</strong>：三个合并症都是CC级别</li>
+                    <li><strong>排除表验证</strong>：主诊断排除表与CC排除表不同</li>
+                    <li><strong>最终结果</strong>：GZ13（伴并发症）</li>
+                </ol>
+            </div>
+
+            <div class="key-points">
+                <h4>🎯 分析要点</h4>
+                <ul>
+                    <li><strong>高龄因素</strong>：88岁高龄增加了治疗复杂性</li>
+                    <li><strong>住院时间</strong>：94天超长住院反映病情严重</li>
+                    <li><strong>多重合并症</strong>：糖尿病、高血压等增加治疗难度</li>
+                    <li><strong>支付影响</strong>：GZ13的支付标准比GZ15高约30-50%</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="summary" class="chart-section">
+            <h2>📚 5. 学习总结</h2>
+            
+            <div class="explanation">
+                <h4>🎓 核心知识点</h4>
+                <ul>
+                    <li><strong>DRG分组目的</strong>：实现按病种付费，控制医疗费用，提高医疗质量</li>
+                    <li><strong>分组原理</strong>：相似的疾病和治疗方式应该有相似的资源消耗</li>
+                    <li><strong>三层结构</strong>：MDC（系统）→ ADRG（核心组）→ DRG（最终组）</li>
+                    <li><strong>关键因素</strong>：主诊断、手术操作、并发症、年龄、住院时间</li>
+                </ul>
+            </div>
+
+            <div class="key-points">
+                <h4>💼 对医院管理的启示</h4>
+                <ul>
+                    <li><strong>编码质量</strong>：准确的诊断编码直接影响医院收入</li>
+                    <li><strong>成本控制</strong>：需要优化诊疗流程，控制平均住院日</li>
+                    <li><strong>质量管理</strong>：减少并发症发生，提高医疗安全</li>
+                    <li><strong>信息化建设</strong>：需要完善的病案管理和编码系统</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h4>🚀 进一步学习建议</h4>
+                <ul>
+                    <li><strong>熟悉ICD编码</strong>：学习疾病诊断和手术操作编码规则</li>
+                    <li><strong>了解临床路径</strong>：理解不同疾病的标准诊疗流程</li>
+                    <li><strong>关注政策变化</strong>：DRG标准会定期更新和完善</li>
+                    <li><strong>实践操作</strong>：多看病例，练习分组判断</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer style="text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid #eee; color: #666;">
+            <p>📊 DRG分组可视化学习指南 | 生成时间: <script>document.write(new Date().toLocaleString('zh-CN'))</script></p>
+        </footer>
+    </div>
+</body>
+</html>

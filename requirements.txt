@@ -1,0 +1,17 @@
+# DRG分组可视化学习指南 - Python依赖包
+# 用于生成DRG分组流程图和学习材料
+
+# 核心可视化库
+matplotlib>=3.7.0
+numpy>=1.24.0
+pandas>=2.0.0
+
+# 可选：用于更好的图表显示
+seaborn>=0.12.0
+
+# 可选：用于交互式图表
+plotly>=5.0.0
+
+# 可选：用于Jupyter notebook支持
+ipython>=8.0.0
+jupyter>=1.0.0
